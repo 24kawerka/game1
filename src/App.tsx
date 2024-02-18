@@ -48,6 +48,12 @@ function App() {
   }, [position, enemies]);
 
   useEffect(() => {
+    if (healthPoint.length === 0) {
+      alert('Dead');
+    }
+  }, [healthPoint]);
+
+  useEffect(() => {
     const speedEnemyImprove = () => {
       setDefaultEnemySpeed((prev) => prev / 2);
       setEmiesTotalCount((prev) => prev + 5);
