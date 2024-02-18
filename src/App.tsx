@@ -18,11 +18,28 @@ function App() {
   const [enemiesTotalCount, setEmiesTotalCount] = useState(30);
   const [defaultEnemySpeed, setDefaultEnemySpeed] = useState(100);
   const [spawnEnemyDelay, setSpawnEnemyDelay] = useState(200);
+  const [isDead, setIsDead] = useState(false);
   const size = 50;
   const weaponSize = {
     height: 20,
     width: 5,
   };
+  console.log(enemies, position);
+  useEffect(() => {
+    if (!isDead) {
+      const isShootByEnemy =
+        enemies.length > 0 &&
+        enemies.find(
+          (item: any) =>
+            item.x + 15 === position.x + 25 || item.y + 15 === position.y + 25,
+        );
+      if (isShootByEnemy) {
+        console.log(isShootByEnemy, position);
+        setIsDead(true);
+        alert('dead');
+      }
+    }
+  }, [position, enemies]);
 
   useEffect(() => {
     const speedEnemyImprove = () => {
