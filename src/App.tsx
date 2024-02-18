@@ -18,25 +18,31 @@ function App() {
   const [enemiesTotalCount, setEmiesTotalCount] = useState(30);
   const [defaultEnemySpeed, setDefaultEnemySpeed] = useState(100);
   const [spawnEnemyDelay, setSpawnEnemyDelay] = useState(200);
-  const [isDead, setIsDead] = useState(false);
+
   const size = 50;
   const weaponSize = {
     height: 20,
     width: 5,
   };
-  console.log(enemies, position);
+
   useEffect(() => {
-    if (!isDead) {
+    if (healthPoint.length > 0) {
       const isShootByEnemy =
         enemies.length > 0 &&
         enemies.find(
           (item: any) =>
-            item.x + 15 === position.x + 25 || item.y + 15 === position.y + 25,
+            item.x < position.x + size &&
+            item.x + 15 > position.x &&
+            item.y < position.y + size &&
+            item.y + 20 > position.y,
         );
       if (isShootByEnemy) {
-        console.log(isShootByEnemy, position);
-        setIsDead(true);
-        alert('dead');
+        setEnemies((prev: any) =>
+          prev.filter((item: any) => item.id !== isShootByEnemy.id),
+        );
+        setHealthPoint((prev) =>
+          prev.filter((item, index) => index !== prev.length - 1),
+        );
       }
     }
   }, [position, enemies]);
