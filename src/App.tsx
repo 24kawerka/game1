@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import healthIcon from './assets/images/health.png';
 import { getRandomInt } from './helpers/getRandomInt';
+import Timer from './components/Timer';
 
 type IDirection = 'right' | 'left' | 'up' | 'down';
 
@@ -15,6 +16,7 @@ function App() {
   const [direction, setDirection] = useState<IDirection>('down');
   const [healthPoint, setHealthPoint] = useState([1, 2, 3, 4, 5]);
   const [enemies, setEnemies] = useState<any>([]);
+  const [time, setTime] = useState(0);
   const [enemiesTotalCount, setEmiesTotalCount] = useState(30);
   const [defaultEnemySpeed, setDefaultEnemySpeed] = useState(100);
   const [spawnEnemyDelay, setSpawnEnemyDelay] = useState(200);
@@ -50,6 +52,8 @@ function App() {
   useEffect(() => {
     if (healthPoint.length === 0) {
       alert('Dead');
+      resetGame();
+      setTime(0);
     }
   }, [healthPoint]);
 
@@ -185,8 +189,18 @@ function App() {
     }, 200);
   };
 
+  const resetGame = () => {
+    setHealthPoint([1, 2, 3, 4, 5]);
+    setEnemies([]);
+    setPosition({
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+    });
+  };
+
   return (
     <div className="App">
+      <Timer time={time} setTime={setTime} />
       <div className="health-container">
         {healthPoint.map((item) => (
           <img src={healthIcon} alt="" key={item} />
@@ -206,6 +220,7 @@ function App() {
         ))}
       <div
         className="square"
+        id="person"
         style={{
           left: position.x,
           top: position.y,
