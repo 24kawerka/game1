@@ -3,31 +3,41 @@ import './App.css';
 import healthIcon from './assets/images/health.png';
 import { getRandomInt } from './helpers/getRandomInt';
 import Timer from './components/Timer';
+import PowerUp from './components/PowerUp';
 
 type IDirection = 'right' | 'left' | 'up' | 'down';
 
 function App() {
+  //positions
   const [position, setPosition] = useState({
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
   });
   const [weaponPosition, setWeaponPosition] = useState({ x: 75, y: 100 });
-  const [isAttack, setIsAttack] = useState(false);
   const [direction, setDirection] = useState<IDirection>('down');
-  const [healthPoint, setHealthPoint] = useState([1, 2, 3, 4, 5]);
+  //enemies
   const [enemies, setEnemies] = useState<any>([]);
-  const [time, setTime] = useState(0);
   const [enemiesTotalCount, setEmiesTotalCount] = useState(30);
   const [defaultEnemySpeed, setDefaultEnemySpeed] = useState(100);
   const [spawnEnemyDelay, setSpawnEnemyDelay] = useState(200);
+  //else
+  const [time, setTime] = useState(0);
+  const [isAttack, setIsAttack] = useState(false);
+  const [healthPoint, setHealthPoint] = useState([1, 2, 3, 4, 5]);
+  const [currentPowerUp, setCurrentPowerUp] = useState<
+    '' | { type: string; x: number; y: number }
+  >('');
 
   const size = 50;
   const weaponSize = {
     height: 20,
     width: 5,
   };
+  const powerUpSpawnDelay = 10000;
+  const powerUps = ['time', 'health', 'refresh', ''];
 
   useEffect(() => {
+    //collision beetween person and enemy
     if (healthPoint.length > 0) {
       const isShootByEnemy =
         enemies.length > 0 &&
@@ -50,14 +60,16 @@ function App() {
   }, [position, enemies]);
 
   useEffect(() => {
+    //end game
     if (healthPoint.length === 0) {
-      alert('Dead');
+      alert(`Your time is ${time} seconds`);
       resetGame();
       setTime(0);
     }
   }, [healthPoint]);
 
   useEffect(() => {
+    //harder every 5 seconds
     const speedEnemyImprove = () => {
       setDefaultEnemySpeed((prev) => prev / 2);
       setEmiesTotalCount((prev) => prev + 5);
@@ -68,6 +80,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    //spawn enemies
     const enemyCreationInterval = setInterval(() => {
       if (enemies.length < enemiesTotalCount) {
         const id = Date.now();
@@ -86,6 +99,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    //enemies movement
     const movementInterval = setInterval(() => {
       setEnemies((prevEnemies: any) =>
         prevEnemies
@@ -109,6 +123,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    //press btns
     const handleKeyDown = (e: any) => {
       switch (e.key) {
         case ' ':
@@ -152,6 +167,7 @@ function App() {
   }, [position]);
 
   useEffect(() => {
+    //person attack
     switch (direction) {
       case 'left':
         setWeaponPosition({
@@ -182,6 +198,11 @@ function App() {
     }
   }, [direction, position]);
 
+  useEffect(() => {
+    const spawnPowerUpId = setInterval(getPowerUp, powerUpSpawnDelay);
+    return () => clearInterval(spawnPowerUpId);
+  }, []);
+
   const attack = () => {
     setIsAttack(true);
     setTimeout(() => {
@@ -196,6 +217,19 @@ function App() {
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
     });
+  };
+
+  const getPowerUp = () => {
+    const randomIndex = Math.floor(Math.random() * powerUps.length);
+    setCurrentPowerUp(
+      powerUps[randomIndex]
+        ? {
+            type: powerUps[randomIndex],
+            x: getRandomInt(window.innerWidth - 80),
+            y: getRandomInt(window.innerHeight - 80),
+          }
+        : '',
+    );
   };
 
   return (
@@ -218,6 +252,17 @@ function App() {
               height: 30,
             }}></div>
         ))}
+      {currentPowerUp && (
+        <PowerUp
+          currentPowerUp={currentPowerUp}
+          setCurrentPowerUp={setCurrentPowerUp}
+          position={position}
+          size={size}
+          setEnemies={setEnemies}
+          setHealthPoint={setHealthPoint}
+          setTime={setTime}
+        />
+      )}
       <div
         className="square"
         id="person"
