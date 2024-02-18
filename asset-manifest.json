@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/game1/static/css/main.e2a6e733.chunk.css",
+    "main.js": "/game1/static/js/main.85583cf2.chunk.js",
+    "main.js.map": "/game1/static/js/main.85583cf2.chunk.js.map",
+    "runtime~main.js": "/game1/static/js/runtime~main.f9ecb2f6.js",
+    "runtime~main.js.map": "/game1/static/js/runtime~main.f9ecb2f6.js.map",
+    "static/js/2.a71b1702.chunk.js": "/game1/static/js/2.a71b1702.chunk.js",
+    "static/js/2.a71b1702.chunk.js.map": "/game1/static/js/2.a71b1702.chunk.js.map",
+    "static/js/3.a29efab2.chunk.js": "/game1/static/js/3.a29efab2.chunk.js",
+    "static/js/3.a29efab2.chunk.js.map": "/game1/static/js/3.a29efab2.chunk.js.map",
+    "index.html": "/game1/index.html",
+    "precache-manifest.362a94540d58bc8c42fb49bc501fef86.js": "/game1/precache-manifest.362a94540d58bc8c42fb49bc501fef86.js",
+    "service-worker.js": "/game1/service-worker.js",
+    "static/css/main.e2a6e733.chunk.css.map": "/game1/static/css/main.e2a6e733.chunk.css.map",
+    "static/media/App.css": "/game1/static/media/sword.741d7276.jpg",
+    "static/media/health.png": "/game1/static/media/health.bc5ad905.png"
+  }
+}
