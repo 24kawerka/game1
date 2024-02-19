@@ -4,7 +4,7 @@ import StartMenu from './pages/StartMenu';
 import GamePage from './pages/GamePage';
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.REACT_APP_BASE_PATH ? '' : '/game1'}>
       <Routes>
         <Route path="/" element={<StartMenu />} />
         <Route path="game" element={<GamePage />} />
