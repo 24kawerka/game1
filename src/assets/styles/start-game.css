@@ -1,0 +1,49 @@
+.container {
+  text-align: center;
+  height: 100vh;
+  background-color: #282c34;
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  background-image: url('../images/background.avif');
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+.menu-container,
+.controll-container {
+  background-image: url('../images/background-menu.jpg');
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  padding: 100px;
+  border-radius: 10px;
+}
+.blocks-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.controll-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+.controller-image {
+  width: 30px;
+  height: 30px;
+}
+.start-game-btn:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.start-game-btn {
+  font-size: 45px;
+  color: #fff;
+}
