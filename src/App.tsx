@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import healthIcon from './assets/images/health.png';
 import { getRandomInt } from './helpers/getRandomInt';
@@ -71,7 +71,7 @@ function App() {
   useEffect(() => {
     //harder every 5 seconds
     const speedEnemyImprove = () => {
-      setDefaultEnemySpeed((prev) => prev - 10);
+      setDefaultEnemySpeed((prev) => (prev > 10 ? prev - 10 : prev / 2));
       setEmiesTotalCount((prev) => prev + 5);
       setSpawnEnemyDelay((prev) => prev / 2);
     };
@@ -217,6 +217,7 @@ function App() {
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
     });
+    setDefaultEnemySpeed(100);
   };
 
   const getPowerUp = () => {
@@ -250,6 +251,7 @@ function App() {
               top: item.y,
               width: 30,
               height: 30,
+              transform: item.direction === 'right' ? 'scaleX(-1)' : 'none',
             }}></div>
         ))}
       {currentPowerUp && (
