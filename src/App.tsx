@@ -71,11 +71,11 @@ function App() {
   useEffect(() => {
     //harder every 5 seconds
     const speedEnemyImprove = () => {
-      setDefaultEnemySpeed((prev) => prev / 2);
+      setDefaultEnemySpeed((prev) => prev - 10);
       setEmiesTotalCount((prev) => prev + 5);
       setSpawnEnemyDelay((prev) => prev / 2);
     };
-    const moveFasterId = setInterval(speedEnemyImprove, 5000);
+    const moveFasterId = setInterval(speedEnemyImprove, 20000);
     return () => clearInterval(moveFasterId);
   }, []);
 
@@ -120,7 +120,7 @@ function App() {
     }, defaultEnemySpeed);
 
     return () => clearInterval(movementInterval);
-  }, []);
+  }, [defaultEnemySpeed]);
 
   useEffect(() => {
     //press btns
